@@ -8,7 +8,7 @@ function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Token nahi mila. Pehle login karo." });
+    return res.status(401).json({ message: "Authorization header missing or invalid." });
   }
 
   const token = authHeader.split(" ")[1]; // Extract the actual token after "Bearer"
@@ -19,7 +19,7 @@ function authMiddleware(req, res, next) {
     req.userId = decoded.userId; // The following route can use this userId
     next(); // Continue because the token is valid
   } catch (err) {
-    return res.status(401).json({ message: "Token invalid ya expire ho gaya hai." });
+    return res.status(401).json({ message: "Invalid or expired token." });
   }
 }
 

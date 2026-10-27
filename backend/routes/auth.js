@@ -18,13 +18,13 @@ router.post("/register", async (req, res) => {
 
     // Basic validation
     if (!name || !email || !password) {
-      return res.status(400).json({ message: "Naam, email, aur password zaruri hai." });
+      return res.status(400).json({ message: "Name, email, and password are required." });
     }
 
     // Check whether the email is already registered
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Is email se account pehle se bana hua hai." });
+      return res.status(400).json({ message: "An account with that email already exists." });
     }
 
     // Create a new user (the password is automatically hashed by the User.js model)
@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
     const token = generateToken(user._id);
 
     res.status(201).json({
-      message: "Account ban gaya!",
+      message: "Account created successfully!",
       token,
       user: { id: user._id, name: user.name, email: user.email },
     });
@@ -48,19 +48,19 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ message: "Email aur password zaruri hai." });
+      return res.status(400).json({ message: "Email and password are required." });
     }
 
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "Email ya password galat hai." });
+      return res.status(400).json({ message: "Invalid email or password." });
     }
 
     // Compare the passwords using the hashed password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Email ya password galat hai." });
+      return res.status(400).json({ message: "Invalid email or password." });
     }
 
     const token = generateToken(user._id);

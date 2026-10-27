@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
     const { title, description } = req.body;
 
     if (!title) {
-      return res.status(400).json({ message: "Task title zaruri hai." });
+      return res.status(400).json({ message: "Task title is required." });
     }
 
     const task = await Task.create({
@@ -46,7 +46,7 @@ router.put("/:id", async (req, res) => {
     const task = await Task.findOne({ _id: req.params.id, user: req.userId });
 
     if (!task) {
-      return res.status(404).json({ message: "Task nahi mila." });
+      return res.status(404).json({ message: "Task not found." });
     }
 
     // Update only the fields provided in the request body
@@ -68,10 +68,10 @@ router.delete("/:id", async (req, res) => {
     const task = await Task.findOneAndDelete({ _id: req.params.id, user: req.userId });
 
     if (!task) {
-      return res.status(404).json({ message: "Task nahi mila." });
+      return res.status(404).json({ message: "Task not found." });
     }
 
-    res.json({ message: "Task delete ho gaya." });
+    res.json({ message: "Task deleted successfully." });
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
   }
