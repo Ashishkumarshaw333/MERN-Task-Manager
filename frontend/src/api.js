@@ -3,10 +3,10 @@
 
 import axios from "axios";
 
-const apiUrl = process.env.VITE_API_URL?.trim().replace(/\/+$/, "");
+const apiUrl = process.env.REACT_APP_API_URL?.trim().replace(/\/+$/, "");
 
 if (!apiUrl) {
-  throw new Error("VITE_API_URL is missing. Set it in frontend/.env and restart the frontend.");
+  throw new Error("REACT_APP_API_URL is missing. Set it in frontend/.env and restart the frontend.");
 }
 
 
