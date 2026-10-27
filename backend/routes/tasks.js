@@ -19,7 +19,6 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
-
 // POST /api/tasks - Create a new task
 router.post("/", async (req, res) => {
   try {

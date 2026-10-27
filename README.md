@@ -39,13 +39,13 @@ npm run dev
 The server will run at `http://localhost:5000`.
 
 ### 3. Frontend setup
-In a new terminal:
+Create `frontend/.env` with the backend URL (for local development, use `REACT_APP_API_URL=http://localhost:5000`). Use the backend's base URL only; do not add `/api`. In a new terminal:
 ```bash
 cd frontend
 npm install
 npm start
 ```
-The app will open at `http://localhost:3000`.
+Restart the frontend after changing `.env`. The app will open at `http://localhost:3000`.
 
 ## Project Structure
 ```
