@@ -3,8 +3,15 @@
 
 import axios from "axios";
 
+const apiUrl = process.env.VITE_API_URL?.trim().replace(/\/+$/, "");
+
+if (!apiUrl) {
+  throw new Error("VITE_API_URL is missing. Set it in frontend/.env and restart the frontend.");
+}
+
+
 const api = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}/api`, // Use the VITE_API_URL from .env
+  baseURL: `${apiUrl}/api`,
 });
 
 // Interceptor: check localStorage for a token before sending each request
